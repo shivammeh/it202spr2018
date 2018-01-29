@@ -12,8 +12,10 @@
     <body>
         <h1>Shivam Mehrotra - Homework 4</h1>
         <form>
-            <input type="text" name="name" placeholder="First and last name"/>
-            <hr>
+        <input type="text" name="name" placeholder="First and last name"/>
+        </form>
+        <hr>
+        <form>
             <select>
                 <option value="select">State Selector</option>
                 <option value="illin">IL</option>
@@ -22,15 +24,26 @@
         </form>
         <hr>
         <form>
-        <input list="classes" name="courses" type ="text" placeholder="Choose a course"><a href="https://www.cs.uic.edu/~grad/CS_Flowchart.pdf>UIC Computer Science Undergraduate Prerequisite Flow-Chart</a>
-        <datalist id="classes">
-            <option value="CS107">
-            <option value="CS109">
-            <option value="CS111">
-            <option value="CS141">
-            <option value="CS151">
-        </datalist>
+            <input type="text" name="course" list="CSCourses" placeholder="Choose a course"/>
+            <datalist id=CSCourses>
+                <option value="CS107"></option>
+                <option value="CS109"></option>
+                <option value="CS111"></option>
+                <option value="CS141"></option>
+                <option value="CS151"></option>
+            </datalist>
+            <a href="https://www.cs.uic.edu/~grad/CS_Flowchart.pdf">UIC Computer Science Undergraduate Prerequisite Flow-Chart</a>
         </form>
-        
+        <hr>
+        <input type="radio" name="year" value="freshman">Freshman</br>
+        <input type="radio" name="year" value="sophomore">Sophomore</br>
+        <input type="radio" name="year" value="junior">Junior</br>
+        <input type="radio" name="year" value="senior">Senior</br>
+        <input type="radio" name="year" value="grad">Grad</br>
+        <hr>
+        <input type="checkbox" name="expenses" value="car"> Car<br>
+        <input type="checkbox" name="expenses" value="phone"> Phone<br>
+        <input type="checkbox" name="expenses" value="lunch"> Lunch<br>
+        <hr>
     </body>
 </html>
