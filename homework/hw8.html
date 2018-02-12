@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Homework 8 by A. Ilic</title>
+  <title>Homework 8</title>
   <meta charset="utf-8">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,11 +31,11 @@
 <script>
 document.getElementById("buttonSearch").addEventListener("click", getWeatherDemo);
  function getWeatherDemo() {
-     var city = $('#city').val();
+    var city = $('#city').val();
     $.get('https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast ' +
           'where woeid in (select woeid from geo.places(1) where text="' + city +'")&format=json', function (data) {
-       var  x = data.query.results.channel;
-        $("#result").append("The temperature at " + x.location.city +  " is at this moment " + x.item.condition.temp +  x.units.temperature);
+    var  x = data.query.results.channel;
+    $("#result").append("The temperature at " + x.location.city +  " is at this moment " + x.item.condition.temp +  x.units.temperature);
     });
 }
 </script>
