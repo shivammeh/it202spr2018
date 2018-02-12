@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Bootstrap Theme The Band</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class "container" id = "home"> </div>
+    <div class "container" id = "search"> 
+    <input type ="text" id = "query"></input>
+    <input type ="button" id = "btnsearch"></input>
+    </div>
+    <div class "container" id = "query"> </div>
+    <script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <script>// Built by LucyBot. www.lucybot.com
+// Built by LucyBot. www.lucybot.com
+var url = "https://api.nytimes.com/svc/movies/v2/reviews/search.json";
+url += '?' + $.param({
+  'api-key': "46d0c22ab45543df9c71145b89c93b15"
+});
+$.ajax({
+  url: url,
+  method: 'GET',
+}).done(function(result) {
+  console.log(result);
+}).fail(function(err) {
+  throw err;
+  
+});
+</script>
+
+</body>
+</html>
