@@ -8,18 +8,9 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<style>
-  .h1 {
-      background-color: white;
-      color: #fff;
-  }
-  .p {background-color: white;
-      color: #fff;
-     }
-  </style>
 </head>
 <body>
 
@@ -36,7 +27,7 @@ document.getElementById("buttonSearch").addEventListener("click", getWeatherDemo
     $.get('https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast ' +
           'where woeid in (select woeid from geo.places(1) where text="' + city +'")&format=json', function (data) {
     var  x = data.query.results.channel;
-    $("#result").append("The temperature at " + x.location.city +  " is at this moment " + x.item.condition.temp +  x.units.temperature);
+    $("#result").append("The temperature at " + x.location.city +  " is at this moment " + x.item.condition.temp +  x.units.temperature + ".");
     });
 }
 </script>
