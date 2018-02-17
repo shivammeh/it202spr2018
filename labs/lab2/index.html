@@ -1,53 +1,135 @@
+<!DOCTYPE HTML SYSTEM>
 <html>
-+ <head>
-+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
- </head>
-     
-    <div class="container" id="home"></div>
-    
-    <div class="container" id="search">
-        <form>
-          <input type="text" id="query"><br>
-          <input type="submit" id="btnSearch" value="Search">
-        </form>
-    </div>
-    
-    <div class="container" id="results"></div>
-    
-    
-    
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.min.js"
-      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-      crossorigin="anonymous"></script>   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
-    <script>
-        // Built by LucyBot. www.lucybot.com
-        function doSearch(){
-            var url = "https://api.nytimes.com/svc/movies/v2/reviews/search.json";
-            url += '?' + $.param({
-              'api-key': "a1ccfc22e7ed408187859292829d6787",
-              'query': $("#query").val()
-            });
-            $.ajax({
-              url: url,
-              method: 'GET',
-            }).done(function(result) {
-              //console.log(result);
-              
-              $.each(result.results, function(i,v){
-                $("body").append(v.display_title + v.openin + '<br>')
-              });
-              
-            }).fail(function(err) {
-              throw err;
-            });
+ <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        #skipLines { 
+            margin-top: 100px; 
         }
         
-        $("#btnSearch").on("click",doSearch());
-    </script>
+        #centerMe {
+            margin: auto;
+            text-align: center;
+            width: 30%;
+        }
+        
+        #home, #search, #results, #template {
+            display:none;
+        }
+        
+    </style>
+  </head>
+  <body>
+       <div id="skipLines"></div>
+        
+        <div class="row form-group form-inline" id="centerMe">
+            <div class="container" id="home">
+                <button id="start" class="btn btn-primary" onclick="switchScreen('home')">Get Started</button>
+            </div>
+        </div>
+        
+        <div class="row form-group form-inline" id="centerMe">
+            <div class="container" id="search">
+                <input type="text" id="query" class="form-control" placeholder="search">
+                <button id="btnSearch" class="btn btn-primary" onclick="switchScreen('search')">Search</button>
+            </div>
+        </div>
+        
+        <div id="skipLines"></div>
+        
+        <div class="row form-group form-inline" id="centerMe">
+        <div id="results"></div>
+        </div>
+    
+    <div class="container" id="results"></div>
+    <div class="container">
+            <div id="template" class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                    <p class="card-text">sample text for card title.</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+          </div>
+      </div>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    
+        <script>
+        
+            $(document).ready(function() {
+                
+                document.getElementById("home").style.display = "block";
+            });
+            
+            function switchScreen(id) {
+                    
+                var screen = id;
+                
+                if(screen == "home") {
+                document.getElementById("home").style.display = "none";
+                document.getElementById("search").style.display = "block";
+                }
+                else {
+                    document.getElementById("search").style.display = "none";
+                    document.getElementById("results").style.display = "block";
+                }
+            }
+            
+            
+        
+            function doSearch() {
+                // Built by LucyBot. www.lucybot.com
+                var url = "https://api.nytimes.com/svc/movies/v2/reviews/search.json";
+                url += '?' + $.param({
+                'api-key': "d8f70a66717c4e83b01eea997920ecc5",
+                'query': $("#query").val()
+                });
+                $.ajax({
+                url: url,
+                method: 'GET',
+                
+                }).done(function(response) {
+                    
+                    //loop through the array of the movie reviews, that array is the results property of the response object
+                    $.each(response.results, function(i,v) {
+                        
+                        console.log(response);
+                        
+                        $("#results").text("");
+                        
+                        // clone template
+                        var clone = $("#template").clone();
+                        
+                        clone.find(".card-body h5").text(v.display_title);
+                        clone.attr("id", "card" + i);
+                        
+                        clone.find(".card-body h6").text("Opens on " + v.opening_date);
+                        clone.attr("id", "card" + i);
+                        
+                        clone.find(".card-body p").text(v.summary_short);
+                        clone.attr("id", "card" + i);
+                        
+                        
+                        // find/replace anchor text
+            
+                        $("#results").append(clone);
+                    });
+                    
+                }).fail(function(err) {
+                    
+                    throw err;
+                });
+            }
+            
+            $("#btnSearch").on("click", doSearch);
+        
+        </script>
+        </body>
  </html>
