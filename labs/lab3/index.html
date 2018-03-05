@@ -7,23 +7,28 @@
    
   </head>
   <body>
+    <canvas id="myCanvas" width="200" height="200"></canvas>
     <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
-    <canvas id="myCanvas" width="400" height="600"></canvas>
+ 
+
     <script>
       var c=document.getElementById("myCanvas");
       var ctx=c.getContext("2d");
       
       var game = {lives: 3, score: 0};
-      var player = {x: 75, y:110 , color: "green", radius: 25};     
-      var harm = {x: c.width, y:100 , color: "blue", radius: 25};
+      var player = {x: 75, y:110 , color: "blue", radius: 25};     
+      var harm = {x: c.width, y:100 , color: "red", radius: 25};   
+      var benefit = {x: c.width, y:125 , color: "green", radius: 25};
       
       
       function draw() {
         ctx.clearRect(0,0,c.width,c.height);
         
+        ctx.font = "12px Arial";
+        ctx.fillText("Lives: " + game.lives + " Score: " + game.score,10,50);
         
         // draw harm
         harm.x--;
@@ -49,17 +54,49 @@
             console.log("collision");
             
             harm.x = c.width;   // reposition harm 
+            harm.y = Math.floor(Math.random() * c.height);  
             game.lives--;       // reduce lives
             
             // TODO: handle game over condition
             
             
-            console.log(game);
         }
         
         
         // TODO:  draw benefit
+        // draw harm
+        benefit.x--;
         
+        if (benefit.x <= 0) {
+          benefit.x = c.width;
+          benefit.y = Math.floor(Math.random() * c.height);  
+        }
+        
+        ctx.fillStyle = benefit.color;
+        ctx.beginPath();
+        ctx.arc(benefit.x,benefit.y,benefit.radius,0,2*Math.PI);
+        ctx.fill();
+        
+        // collision check, using code from 
+        //   https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+        
+        var dx = player.x - benefit.x;
+        var dy = player.y - benefit.y;
+        var distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < player.radius + benefit.radius) {
+            // collision detected!
+            console.log("collision");
+            
+            benefit.x = c.width;   // reposition harm 
+            benefit.y = Math.floor(Math.random() * c.height); 
+            game.score+=100;       // reduce lives
+            
+            // TODO: handle next level condition
+            
+            
+            console.log(game);
+        }        
         
         
         
@@ -90,25 +127,30 @@
 
       // TODO:  keyboard events to change player y coordinate
       $(document).keydown(function(e) {
-        switch(e.which) {
-          case 37:
-            player.x-=5;
-            break;
-          case 38:
-            player.y-=5;
-            break;
-          case 39:
-            player.x+=5;
-            break;
-          case 40:
-            player.y+=5;
-            break;
-          default:
-          
-            return;
-        }
-        e.preventDefault();
+          console.log(e);
+          switch(e.which) {
+              case 37: // left
+              break;
+      
+              case 38: // up
+                player.y-=5;
+              break;
+      
+              case 39: // right
+              break;
+      
+              case 40: // down
+                player.y+=5;
+              break;
+      
+              default: return; // exit this handler for other keys
+          }
+          e.preventDefault(); // prevent the default action (scroll / move caret)
       });
+      
+      
+      
+      
       
       // TODO:  space bar to pause game
 
