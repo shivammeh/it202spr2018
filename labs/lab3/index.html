@@ -7,6 +7,10 @@
    
   </head>
   <body>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
     <canvas id="myCanvas" width="400" height="600"></canvas>
     <script>
       var c=document.getElementById("myCanvas");
@@ -85,7 +89,26 @@
       draw();
 
       // TODO:  keyboard events to change player y coordinate
-      
+      $(document).keydown(function(e) {
+        switch(e.which) {
+          case 37:
+            player.x-=5;
+            break;
+          case 38:
+            player.y-=5;
+            break;
+          case 39:
+            player.x+=5;
+            break;
+          case 40:
+            player.y+=5;
+            break;
+          default:
+          
+            return;
+        }
+        e.preventDefault();
+      });
       
       // TODO:  space bar to pause game
 
