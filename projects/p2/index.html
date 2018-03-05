@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        body {
+            width: 100%;
+            height: 100vh;
+            margin: 0px;
+        }
+        .informationBox {
+            width: 450px;
+            height: 250px;
+            border-radius: 25px;
+            opacity: 0.5;
+            
+            position: absolute;
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            
+            margin: auto;
+            box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+        }
+        #map {
+            height: 100%;
+        }
+        
+    </style>
+    
+    <head>
+        <link rel="stylesheet" href="node_modules/material-components-web/dist/material-components-web.css">
+        <title> </title>
+    </head>
+    
+    <body class ="mdc-typography">
+    <div class="page1"></div> 
+        <div class="informationBox" >
+            <h2 class="mdc-typography--title">
+                Welcome
+            </h2>
+            <p class="mdc-typography--body1">Welcome, you have arrived at the webpage to search for schools by school type in the City of Chicago.
+            </p>
+            <button class="nextButton mdc-button mdc-button--unelevated big-round-corner-button mdc-ripple-upgraded" style="--mdc-ripple-fg-size:87.3844px; --mdc-ripple-fg-scale:1.83127; --mdc-ripple-fg-translate-start:51.3078px, -28.9734px; --mdc-ripple-fg-translate-end:29.1281px, -25.6922px;">
+                Next
+            </button>
+            </div>
+    </div>
+    
+            
+            <script src="node_modules/material-components-web/dist/material-components-web.js"></script>
+            <script>mdc.autoInit()</script>
+    </body>
+</html>
