@@ -6,9 +6,24 @@
             height: 100vh;
             margin: 0px;
         }
+        .page1 {
+              background: #111;
+              height: 100%;
+              width: 100%;
+              background: url(background.jpeg) no-repeat center fixed; 
+                background-size: cover;
+        }
+        .page2 {
+              background: #111;
+              height: 100%;
+              width: 100%;
+              background: url(background.jpeg) no-repeat center fixed; 
+                background-size: cover;
+        }
         .informationBox {
             width: 450px;
             height: 250px;
+            background-color:rgba(255,255,255,.6);
             border-radius: 25px;
             opacity: 0.5;
             
@@ -45,9 +60,70 @@
             </button>
             </div>
     </div>
+    <div class="page2">    
+        <div class="informationBox2" >
+            <h2 class="mdc-typography--title">
+              School Type Selection
+            </h2>
+            <p class="mdc-typography--body1">Please select the school types that you want to have displayed below and press show map. (Please make sure to press the check, that you want to utilize)
+            </p>
+            <div class="mdc-menu-anchor" style="top: 50px; left: 0px;">
+            <button id="menu-button" class="material-icons mdc-button \ demo-button--normal">
+              menu
+            </button>
+
+            <div class="mdc-menu" style="position: absolute; transform-origin: center top 0px; left: 0px; top: 0px;" tabindex="-1" id="demo-menu">
+                <ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
+                <li class="mdc-list-item" role="menuitem" tabindex="0">
+                    <input type="checkbox" name="checkbox1"/>Career Academy
+                </li>
+                <li class="mdc-list-item" role="menuitem" tabindex="-1">
+                    <input type="checkbox" name="checkbox2"/>Charter 
+                </li>
+                <li class="mdc-list-item" role="menuitem" tabindex="-2">
+                    <input type="checkbox" name="checkbox3"/>Citywide-option 
+                </li>
+                <li class="mdc-list-item" role="menuitem" tabindex="-3">
+                    <input type="checkbox" name="checkbox4"/>Classical 
+                </li>
+                <li class="mdc-list-item" role="menuitem" tabindex="-4">
+                    <input type="checkbox" name="checkbox5"/>Contract 
+                </li>
+                <li class="mdc-list-item" role="menuitem" tabindex="-5">
+                    <input type="checkbox" name="checkbox6"/>Magnet
+                </li>
+                <li class="mdc-list-item" role="menuitem" tabindex="-6">
+                    <input type="checkbox" name="checkbox7"/>Military Academy 
+                </li>
+                <li class="mdc-list-item" role="menuitem" tabindex="-7">
+                    <input type="checkbox" name="checkbox8"/>Neighborhood 
+                </li>
+                <li class="mdc-list-item" role="menuitem" tabindex="-8" >
+                    <input type="checkbox" name="checkbox9"/>Regional gifted center 
+                </li>
+                <li class="mdc-list-item" role="menuitem" tabindex="-9">
+                    <input type="checkbox" name="checkbox10"/>Selective enrollment 
+                </li>
+                <li class="mdc-list-item" role="menuitem" tabindex="-10">
+                    <input type="checkbox" name="checkbox11"/>Small 
+                </li>
+                <li class="mdc-list-item" role="menuitem" tabindex="-11">
+                    <input type="checkbox" name="checkbox12"/>Special education 
+                </li>
+                </ul>
+            </div>
+         </div>
+         <button class="showMapButton mdc-button mdc-button--unelevated big-round-corner-button mdc-ripple-upgraded" style="--mdc-ripple-fg-size:87.3844px; --mdc-ripple-fg-scale:1.83127; --mdc-ripple-fg-translate-start:51.3078px, -28.9734px; --mdc-ripple-fg-translate-end:29.1281px, -25.6922px;">
+                  Show Map
+            </button>
+        </div>
+    </div>
+    <div class="page3">
+        <div id="map"></div>
+    </div>
     
             
-            <script src="node_modules/material-components-web/dist/material-components-web.js"></script>
-            <script>mdc.autoInit()</script>
+        <script src="node_modules/material-components-web/dist/material-components-web.js"></script>
+        <script>mdc.autoInit()</script>
     </body>
 </html>
