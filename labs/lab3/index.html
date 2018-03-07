@@ -4,21 +4,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>repl.it</title>
-   
+     <style type="text/css">
+     #myCanvas {
+       background-image: url(https://i.ytimg.com/vi/gaRME3x9Wfw/maxresdefault.jpg);
+     }
+   </style>
   </head>
   <body>
     <canvas id="myCanvas" width="200" height="200"></canvas>
     <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
  
 
     <script>
       var c=document.getElementById("myCanvas");
       var ctx=c.getContext("2d");
       
-      var game = {lives: 3, score: 0};
+      var game = {lives: 3, score: 0, level: 1};
       var player = {x: 75, y:110 , color: "blue", radius: 25};     
       var harm = {x: c.width, y:100 , color: "red", radius: 25};   
       var benefit = {x: c.width, y:125 , color: "green", radius: 25};
@@ -28,7 +32,7 @@
         ctx.clearRect(0,0,c.width,c.height);
         
         ctx.font = "12px Arial";
-        ctx.fillText("Lives: " + game.lives + " Score: " + game.score,10,50);
+        ctx.fillText("Lives:" + game.lives + "   Score: " + game.score + "   Level: " + game.level,10,50);
         
         // draw harm
         harm.x--;
@@ -58,13 +62,17 @@
             game.lives--;       // reduce lives
             
             // TODO: handle game over condition
-            
+            if(game.lives <= 0) {
+              ctx.clearRect(0,0,c.width,c.height);
+              ctx.fillStyle(harm.color);
+              ctx.fill(harm.color);
+              ctx.fillText("Game Over!");
+            }
             
         }
         
         
         // TODO:  draw benefit
-        // draw harm
         benefit.x--;
         
         if (benefit.x <= 0) {
@@ -88,19 +96,17 @@
             // collision detected!
             console.log("collision");
             
-            benefit.x = c.width;   // reposition harm 
+            benefit.x = c.width;   // reposition benefit 
             benefit.y = Math.floor(Math.random() * c.height); 
-            game.score+=100;       // reduce lives
+            game.score+=100;       // add score when collision with good things
             
             // TODO: handle next level condition
-            
+            if(game.score % 2 == 0) {
+              game.level++;
+            }
             
             console.log(game);
         }        
-        
-        
-        
-        
         
         // draw player
         ctx.fillStyle = player.color;
@@ -108,15 +114,6 @@
         ctx.arc(player.x,player.y,player.radius,0,2*Math.PI);
         ctx.fill();
         
-        
-        
-        
-        // TODO:  draw score and lives
-      
-        
-      
-      
-      
         requestAnimationFrame(draw);
       }
       
@@ -147,10 +144,6 @@
           }
           e.preventDefault(); // prevent the default action (scroll / move caret)
       });
-      
-      
-      
-      
       
       // TODO:  space bar to pause game
 
