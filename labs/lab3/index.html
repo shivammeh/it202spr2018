@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>repl.it</title>
+    <title>Lab 3 - Shivam Mehrotra</title>
      <style type="text/css">
      #myCanvas {
        background-image: url(https://i.ytimg.com/vi/gaRME3x9Wfw/maxresdefault.jpg);
@@ -22,23 +22,32 @@
       var c=document.getElementById("myCanvas");
       var ctx=c.getContext("2d");
       
-      var game = {lives: 3, score: 0, level: 1};
+      var game = {lives: 3, score: 0, level: 1, state: "play"};
       var player = {x: 75, y:110 , color: "blue", radius: 25};     
       var harm = {x: c.width, y:100 , color: "red", radius: 25};   
       var benefit = {x: c.width, y:125 , color: "green", radius: 25};
       
       
       function draw() {
+      if(game.state == "play") {
+        if(game.lives <= 0) {
+              game.state = "over";
+              ctx.clearRect(0,0,c.width, c.height);
+              ctx.fillStyle = "red";
+              ctx.fillRect(0,0,c.width, c.height);
+        }
+        
         ctx.clearRect(0,0,c.width,c.height);
         
         ctx.font = "12px Arial";
         ctx.fillText("Lives:" + game.lives + "   Score: " + game.score + "   Level: " + game.level,10,50);
-        
+        if(game.state == "play") {
         // draw harm
-        harm.x--;
+        harm.x -= game.level;
         
         if (harm.x <= 0) {
           harm.x = c.width;
+          harm.y = Math.floor(Math.random() * c.height);
         }
         
         ctx.fillStyle = harm.color;
@@ -61,22 +70,14 @@
             harm.y = Math.floor(Math.random() * c.height);  
             game.lives--;       // reduce lives
             
-            // TODO: handle game over condition
-            if(game.lives <= 0) {
-              ctx.clearRect(0,0,c.width,c.height);
-              ctx.fillStyle(harm.color);
-              ctx.fill(harm.color);
-              ctx.fillText("Game Over!");
-            }
-            
         }
         
         
         // TODO:  draw benefit
-        benefit.x--;
+        benefit.x -= game.level;
         
         if (benefit.x <= 0) {
-          benefit.x = c.width;
+          benefit.x = c.width + 100;
           benefit.y = Math.floor(Math.random() * c.height);  
         }
         
@@ -96,7 +97,7 @@
             // collision detected!
             console.log("collision");
             
-            benefit.x = c.width;   // reposition benefit 
+            benefit.x = c.width + 100;   // reposition benefit 
             benefit.y = Math.floor(Math.random() * c.height); 
             game.score+=100;       // add score when collision with good things
             
@@ -113,13 +114,15 @@
         ctx.beginPath();
         ctx.arc(player.x,player.y,player.radius,0,2*Math.PI);
         ctx.fill();
+        }
         
+        if(game.state == "play") {
         requestAnimationFrame(draw);
-      }
-      
-      
-      
-      
+        }
+
+        }
+    }
+
       draw();
 
       // TODO:  keyboard events to change player y coordinate
