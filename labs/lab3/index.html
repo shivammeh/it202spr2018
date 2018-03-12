@@ -35,8 +35,11 @@
               ctx.clearRect(0,0,c.width, c.height);
               ctx.fillStyle = "red";
               ctx.fillRect(0,0,c.width, c.height);
+              ctx.font = "25px Arial";
+              ctx.fillStyle = "white";
+              ctx.fillText("Game Over!",10,50);
         }
-        
+        else {
         ctx.clearRect(0,0,c.width,c.height);
         
         ctx.font = "12px Arial";
@@ -121,6 +124,7 @@
         }
 
         }
+      }
     }
 
       draw();
