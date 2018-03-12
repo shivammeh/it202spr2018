@@ -11,4 +11,29 @@
     
     <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $("#search").click(function(){
+            $("#result").empty();
+            var db = new Dexie("AppDB");
+            db.version(1).stores({
+                Restaurants: '++id, name, cuisine'
+            });
+            db.Restaurants.add({
+                name: "McDonalds",
+                cuisine: "American"
+            })
+            db.Restaurants.add({
+                name: "Taco Bell",
+                cuisine: "Mexican"
+            })
+            db.Restaurants.add({
+                name: "Big Bowl Chinese and Thai",
+                cuisine: "Thai"
+            })
+            
+            db.Restaurants.where('cuisine').noneOf(['Thai']).each(function(restaurant) {
+                $("#result").append('<li>Name: ' + restaurant.name + ", Cuisine: " + restaurant.cuisine + '</li>');
+            });
+        })
+    </script>
 </html>
