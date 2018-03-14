@@ -3,7 +3,21 @@
     <head>
         <title>Homework 17 - Shivam Mehrotra </title>
     </head>
+    <script type="text/javascript">
+        if ('caches' in window) {
+            caches.open('saved-content').then((cache) => {
+                cache.match('image.jpg').then((response) => {
+                    if (response == undefined)
+                        cache.add('image.jpg');
+                });
+                cache.match('h17.html').then((response) => {
+                        if (response == undefined)
+                            cache.add('h17.html');
+                });
+            });
+        }
+    </script>
     <body>
-        
+        <img src="image.jpg">
     </body>
 </html>
