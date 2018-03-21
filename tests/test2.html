@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test 2</title>
+    </head>
+    <body>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
+        <script>
+        $(document).ready(function() {
+            displayResults();
+        });
+    
+    function displayResults() {
+      var url = "https://data.cityofchicago.org/resource/tt4n-kn4t.json";
+
+      $.ajax({
+        url: url,
+        method: 'GET',
+      }).
+      done(function(result) {
+        showResults(result);
+      }).
+      fail(function(err) {
+        throw err;
+      });
+    }
+    
+    function showResults(response) {
+      $.each(response, function(i, employee) {
+        if(employee.full_or_part_time == "P"){
+                  var testing = "<p>Name : " + employee.name + " Job Title: " + employee.job_titles + "</p> <br>";;
+                $(testing).appendTo("body");
+        }
+      });
+
+    
+    }
+    </script>
+    </body>
+</html>
