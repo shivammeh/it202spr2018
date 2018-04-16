@@ -25,13 +25,13 @@
             crossorigin="anonymous">
         </script>
         <script>
-            const player = document.getElementById('player');
-            const canvas = document.getElementById('canvas');
-            const context = canvas.getContext('2d');
-            const captureButton = document.getElementById('capture');
-            var canvas3 = [];
-            var context3 = [];
-            var count = 0;
+       const player = document.getElementById('player');
+       const canvas = document.getElementById('canvas');
+       const context = canvas.getContext('2d');
+       const captureButton = document.getElementById('capture');
+       var canvas3 = [];
+       var context3 = [];
+       var count = 0;
     
       const constraints = {
         video: true,
@@ -44,7 +44,7 @@
         getImageData();
       });
     
-      // Attach the video stream to the video element and autoplay.
+      // Attach video
       navigator.mediaDevices.getUserMedia(constraints)
         .then((stream) => {
           player.srcObject = stream;
@@ -59,7 +59,7 @@
               "features":[
                 {
                   "type":"FACE_DETECTION",
-                  "maxResults":10
+                  "maxResults":20
                 }
               ]
             }
@@ -72,9 +72,9 @@
             method: "POST",
             contentType: "application/json",
             url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAALg87WgKBc2pMH3C8kGa-zpF_wc19Rb4",
-            data :JSON.stringify(requestBody)
+            data: JSON.stringify(requestBody)
         })  
-         .done(function(response) {
+        .done(function(response) {
             if (!$.trim(response.responses[0].faceAnnotations)){
              alert("No face has been found");
            }
@@ -113,11 +113,10 @@
             method: "POST",
             contentType: "application/json",
             url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAALg87WgKBc2pMH3C8kGa-zpF_wc19Rb4",
-            data :JSON.stringify(requestBody)
-        })  
+            data: JSON.stringify(requestBody)
+         })  
          .done(function(response) {
             console.log(response);
-            console.log(response.responses[0].labelAnnotations[0].boundingPoly.vertices);
             var i;
             
             for(i = 0; i < response.responses[0].labelAnnotations.length; i++)
