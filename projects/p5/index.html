@@ -93,7 +93,39 @@
            }
             
          });
-    
+         
+         requestBody = {"requests":[
+            {
+              "image":{
+                "content": canvas.toDataURL().split(",")[1]
+              },
+              "features":[
+                {
+                  "type":"LABEL_DETECTION",
+                  "maxResults":20
+                }
+              ]
+            }
+        ]
+        };
+         
+         $.ajax({
+            method: "POST",
+            contentType: "application/json",
+            url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAW85ZSYCRiQikO7WqZAPIFyX7vsbalPqI",
+            data :JSON.stringify(requestBody)
+        })  
+         .done(function(response) {
+            console.log(response);
+            //console.log(response.responses[0].labelAnnotations[0].boundingPoly.vertices);
+            var i;
+            
+            for(i = 0; i < response.responses[0].labelAnnotations.length; i++)
+            {
+              clone.append("Description: " + response.responses[0].labelAnnotations[i].description + " Score: " + response.responses[0].labelAnnotations[i].score)
+            }
+            count++;
+         });
      }
         </script>
     </body>
