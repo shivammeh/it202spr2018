@@ -71,7 +71,7 @@
         $.ajax({
             method: "POST",
             contentType: "application/json",
-            url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAW85ZSYCRiQikO7WqZAPIFyX7vsbalPqI",
+            url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAALg87WgKBc2pMH3C8kGa-zpF_wc19Rb4",
             data :JSON.stringify(requestBody)
         })
         .done(function(response) {
@@ -112,9 +112,9 @@
          $.ajax({
             method: "POST",
             contentType: "application/json",
-            url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAW85ZSYCRiQikO7WqZAPIFyX7vsbalPqI",
-            data :JSON.stringify(requestBody)
-        })    
+            url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAALg87WgKBc2pMH3C8kGa-zpF_wc19Rb4",
+            data: JSON.stringify(requestBody)
+        }) 
          .done(function(response) {
             console.log(response);
             var i;
