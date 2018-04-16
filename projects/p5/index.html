@@ -112,12 +112,12 @@
          $.ajax({
             method: "POST",
             contentType: "application/json",
-            url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAW85ZSYCRiQikO7WqZAPIFyX7vsbalPqI",
+            url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAALg87WgKBc2pMH3C8kGa-zpF_wc19Rb4",
             data :JSON.stringify(requestBody)
         })  
          .done(function(response) {
             console.log(response);
-            //console.log(response.responses[0].labelAnnotations[0].boundingPoly.vertices);
+            console.log(response.responses[0].labelAnnotations[0].boundingPoly.vertices);
             var i;
             
             for(i = 0; i < response.responses[0].labelAnnotations.length; i++)
