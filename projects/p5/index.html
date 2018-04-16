@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> </title>
+    </head>
+    <body>
+        <video id="player" controls autoplay></video>
+        <button id="capture">Capture</button>
+        <canvas id="canvas" width=320 height=240></canvas>
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+        </script>
+        <script>
+            const player = document.getElementById('player');
+            const canvas = document.getElementById('canvas');
+            const context = canvas.getContext('2d');
+            const captureButton = document.getElementById('capture');
+    
+      const constraints = {
+        video: true,
+      };
+    
+      captureButton.addEventListener('click', () => {
+        // Draw the video frame to the canvas.
+        context.drawImage(player, 0, 0, canvas.width, canvas.height);
+      });
+    
+      // Attach the video stream to the video element and autoplay.
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then((stream) => {
+          player.srcObject = stream;
+        });
+     
+     getImageData();
+     function getImageData(){
+        var requestBody = {"requests":[
+            {
+              "image":{
+                "content": canvas.toDataURL().split(",")[1]
+              },
+              "features":[
+                {
+                  "type":"FACE_DETECTION",
+                  "maxResults":10
+                }
+              ]
+            }
+        ]
+        }
+
+
+        $.ajax({
+            method: "POST",
+            contentType: "application/json",
+            url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAALg87WgKBc2pMH3C8kGa-zpF_wc19Rb4",
+            data :JSON.stringify(requestBody)
+        })  
+         .done(function(response) {
+            console.log(response);
+            $("#imageData").html("<pre>" + JSON.stringify(response) + "</pre>")
+         });
+    
+     }
+        </script>
+    </body>
+</html>
