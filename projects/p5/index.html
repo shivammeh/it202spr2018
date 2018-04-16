@@ -1,131 +1,109 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Shivam Proj 5</title>
-    </head>
-    <body>
-        <video id="player" controls autoplay></video>
-        <div>
-        <button id="capture">Capture</button>
-        </br></div>
-        <div id="hidden">
-        <canvas id="canvas" width=320 height=240></canvas>
-        </div>
-        </br>
-        <div id="imageData">
-        </div>
-        <div id="contentBody">
-            <div id="specificContent">
-                <canvas id="canvas2" width=320 height=240></canvas>
-            </div>
-            </div>
-        <script
-            src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous">
-        </script>
-        <script>
-       const player = document.getElementById('player');
-       const canvas = document.getElementById('canvas');
-       const context = canvas.getContext('2d');
-       const captureButton = document.getElementById('capture');
-       var canvas3 = [];
-       var context3 = [];
-       var count = 0;
-    
-      const constraints = {
-        video: true,
-      };
-    
-      $("#hidden").hide();
-      
-      captureButton.addEventListener('click', () => {
-        context.drawImage(player, 0, 0, canvas.width, canvas.height);
-        getImageData();
-      });
-    
-      // Attach video
-      navigator.mediaDevices.getUserMedia(constraints)
-        .then((stream) => {
-          player.srcObject = stream;
-      });
-     
-     function getImageData(){
-        var requestBody = {"requests":[
-            {
-              "image":{
-                "content": canvas.toDataURL().split(",")[1]
-              },
-              "features":[
-                {
-                  "type":"FACE_DETECTION",
-                  "maxResults":20
-                }
-              ]
-            }
-        ]
-        };
+<html lang="en">
 
-        var clone, faceCount;
-        
-        $.ajax({
-            method: "POST",
-            contentType: "application/json",
-            url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAALg87WgKBc2pMH3C8kGa-zpF_wc19Rb4",
-            data :JSON.stringify(requestBody)
-        })
-        .done(function(response) {
-            if (!$.trim(response.responses[0].faceAnnotations)){
-             alert("No face has been found");
-           }
-           else
-           {
-            console.log(response);
-            console.log(response.responses[0].faceAnnotations[0].boundingPoly.vertices);
-            clone = $("#specificContent").clone();
-            $(clone).html("<canvas id='canvas3" + count +"' width=320 height=240></canvas>")
-            $("#contentBody").prepend(clone);
-            canvas3.push(document.getElementById('canvas3' + count));
-            canvas3[count].width = response.responses[0].faceAnnotations[0].boundingPoly.vertices[1].x - response.responses[0].faceAnnotations[0].boundingPoly.vertices[0].x;
-            canvas3[count].height = response.responses[0].faceAnnotations[0].boundingPoly.vertices[2].y - response.responses[0].faceAnnotations[0].boundingPoly.vertices[0].y;
-            context3[count] = canvas3[count].getContext('2d');
-            context3[count].drawImage(canvas, response.responses[0].faceAnnotations[0].boundingPoly.vertices[0].x, response.responses[0].faceAnnotations[0].boundingPoly.vertices[0].y, response.responses[0].faceAnnotations[0].boundingPoly.vertices[1].x ,response.responses[0].faceAnnotations[0].boundingPoly.vertices[2].y, 0, 0, response.responses[0].faceAnnotations[0].boundingPoly.vertices[1].x - response.responses[0].faceAnnotations[0].boundingPoly.vertices[0].x, response.responses[0].faceAnnotations[0].boundingPoly.vertices[2].y - response.responses[0].faceAnnotations[0].boundingPoly.vertices[0].y);
-           }
-            
-         });
-         
-         requestBody = {"requests":[
-            {
-              "image":{
-                "content": canvas.toDataURL().split(",")[1]
-              },
-              "features":[
-                {
-                  "type":"LABEL_DETECTION",
-                  "maxResults":20
-                }
-              ]
-            }
-        ]
-        };
-         
-         $.ajax({
-            method: "POST",
-            contentType: "application/json",
-            url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAALg87WgKBc2pMH3C8kGa-zpF_wc19Rb4",
-            data: JSON.stringify(requestBody)
-        }) 
-         .done(function(response) {
-            console.log(response);
-            var i;
-            
-            for(i = 0; i < response.responses[0].labelAnnotations.length; i++)
-            {
-              clone.append("Description: " + response.responses[0].labelAnnotations[i].description + " Score: " + response.responses[0].labelAnnotations[i].score)
-            }
-            count++;
-         });
-        }
-        </script>
-    </body>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <video id="player" controls autoplay></video>
+  <button id="capture">Capture</button>
+  <canvas id="canvas" width=320 height=240></canvas>
+  <canvas id="collageCanvas" width="320" height="240"></canvas>
+  <canvas id="frameCanvas" width="320" height="240"></canvas>
+  <div id="imageData"></div>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    const collageCanvas = document.getElementById('collageCanvas');
+    const collageContext = collageCanvas.getContext('2d');
+    const captureButton = document.getElementById('capture');
+    var requestBody, nextX = 0, nextY = 0;
+    collageCanvas.width = window.innerWidth;
+    collageCanvas.height = 300;
+          
+    const constraints = {
+      video: true,
+    };
+
+    captureButton.addEventListener('click', () => {
+      // Draw the video frame to the canvas.
+      context.drawImage(player, 0, 0, canvas.width, canvas.height);
+      console.log($("canvas")[0].toDataURL().split(',')[1]);
+      getImageData();
+
+    });
+
+    // Attach the video stream to the video element and autoplay.
+    navigator.mediaDevices.getUserMedia(constraints)
+      .then((stream) => {
+        player.srcObject = stream;
+      });
+
+
+  function getImageData(){
+    requestBody= {
+      "requests": [{
+        "image": {
+          "content": $("canvas")[0].toDataURL().split(',')[1]
+        },
+        "features": [{
+          "type": "FACE_DETECTION",
+          "maxResults": 1
+        }]
+      }]
+    };
+
+    $.ajax({
+      method: 'POST',
+      contentType: 'application/json',
+      url: 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAALg87WgKBc2pMH3C8kGa-zpF_wc19Rb4',
+      data: JSON.stringify(requestBody)
+    })
+    .done(function(response) {
+      console.log(response);
+      
+      var data = response;
+                  var faceVertices = response.responses[0].faceAnnotations[0].boundingPoly.vertices;
+                  console.log(faceVertices);
+                  
+                  // find corners
+                  var topLeft = faceVertices[0];
+                  var bottomRight = faceVertices[2];
+                  console.log(bottomRight, bottomRight.x, topLeft, topLeft.x);
+                  
+                  // determine width and height for cropping
+                  var faceWidth = bottomRight.x - topLeft.x;
+                  var faceHeight = bottomRight.y - topLeft.y;
+                  var sourceX = topLeft.x;
+                  var sourceY = topLeft.y;
+                  var destWidth = faceWidth;
+                  var destHeight = faceHeight;
+
+                   // check to see whether we need to start a new row or column
+                  if (nextX > collageCanvas.width) {
+                    nextX = 0;
+                    nextY += faceHeight;
+                  }
+                  
+                  if (nextY + faceHeight > collageCanvas.height) {
+                    var imgData=collageContext.getImageData(0,0,collageCanvas.width, collageCanvas.height);
+
+                    collageCanvas.height += faceHeight;
+                    collageContext.putImageData(imgData,0,0);
+                  }                  
+       
+                  collageContext.drawImage(canvas, sourceX, sourceY, faceWidth, faceHeight, nextX, nextY, faceWidth, faceHeight); 
+                  nextX += faceWidth;
+    })
+    .fail(function(err) {
+      throw err;
+    });
+    
+  }
+  
+  
+  </script>
+</body>
+
 </html>
