@@ -16,6 +16,7 @@
             .screen {padding-left: 16px;}
         </style>
     </head>
+    
     <body class="mdc-typography">
         <header class="mdc-toolbar mdc-toolbar--fixed demo-toolbar">
               <div class="mdc-top-app-bar__row">
@@ -156,26 +157,24 @@
             var clone, separator, secondaryText;
             var separator
             
-            
-            
             $("#resultList li").not("#template").remove();
-            $.each(response, function(k,v) {
+            $.each(response.near_earth_objects , function(k,v) {
               $.each(v, function(i,v2) {
                 
                 clone = $("#template").clone().removeClass("hidden");
-                clone.find(".mdc-list-item__text").text("Asteroid Name: " + v.name + " Date recorded: " + v.da);
+                clone.find(".mdc-list-item__text").text("Asteroid Name: " + v2.name + " Date recorded: " + v2.close_approach_data[0].close_approach_date);
 
                 // secondary text
                 secondaryText = $("<span>").addClass("mdc-list-item__secondary-text");
                 secondaryText.text("Estimated diameter in meters: " 
-                  + TODO:  display min estimated diameter in meters 
+                  + v2.estimated_diameter.meters.estimated_diameter_min
                   + " to "
-                  + TODO:  display max estimated diameter in meters );
+                  + v2.estimated_diameter.meters.estimated_diameter_max );
                 clone.find(".mdc-list-item__text").append(secondaryText);
                 
                 // link to nasa_jpl_url
                 
-                clone.find("a").attr("href", TODO: set href to the nasa jpl url);
+                clone.find("a").attr("href", v2.nasa_jpl_url);
                 
                 var separator = $("<li>").addClass("mdc-list-divider").attr("role","separator");
                 $("#resultList").append(separator);
