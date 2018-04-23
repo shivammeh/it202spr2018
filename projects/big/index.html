@@ -18,18 +18,20 @@
         
     </head>
     <body>
-        <nav>
+      <nav>
         <li><a class="active" href="#home">Home</a></li>
         <li><a href="#search">Search</a></li>
         <li><a href="#Results">Map</a></li>
         <li><a href="#about">About</a></li>
       </nav>
-
         <!--home screen-->
         <div id="home" class="screen" style="text-align:center">
             <h1>Welcome!</h1>
             <h3>Click get started to go to the next screen!</h3>
-            <button id = "start" class = "btn btn-primary" onClick = "switchTo('home')" >Get Started</button>
+            <button class="mdc-button mdc-button--raised mdc-ripple-surface"
+            data-mdc-auto-init="MDCRipple" id="start_button" onClick="switchTo('home')">
+              Lets Start
+          </button>
         </div>
         
         <!--search screen-->
@@ -62,10 +64,13 @@
           <div id="map"></div>
           <div id = "results"></div>
         </div>
+
         
+        <!--about screen-->
         <div id="about" class = "screen" style = "text-align: center">
-            <h1>Project 2</h1>
+            <h1>Big Project</h1>
             <h2>Shivam Mehrotra</h2>
+            <h2>Finds school's in a area and maps out </h2>
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
@@ -127,6 +132,22 @@
                             zoom: 10,
                             center: myLatLng,
                         });
+                        
+                        navigator.geolocation.getCurrentPosition(success, error);
+                        
+                        function success(position){
+                            var userLoc = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        
+                            var userMarker = new google.maps.Marker({
+                                position: userLoc,
+                                map: map,
+                                title: "You are here!"
+                            });
+                        }
+                        
+                        function error(){
+                            console.log("Something went wrong...");
+                        }
                         
                         //display responses on console
                         $("#results").text("");
@@ -221,7 +242,7 @@
                     });
                 });
             }
-        </script>
+    </script>
     
     <script
         src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -229,6 +250,11 @@
         crossorigin="anonymous">
     </script>
     
+    $("#btnSearch").on("click", doSearch);
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+      
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7GwIaTSXDP8x4_nrJ1QAS1VJYCJW1xVM&callback=initMap">
     </script>
