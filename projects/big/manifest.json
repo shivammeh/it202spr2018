@@ -7,6 +7,11 @@
       "type": "image/png",
       "sizes": "48x48"
     }
+    {
+      "src": "background.jpeg",
+      "type": "image/jpeg",
+      "sizes": "1920x1080"
+    }
   ],
   "start_url": "index.html"
 }
