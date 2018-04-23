@@ -1,11 +1,13 @@
 var cacheName = 'big'; // big
 var dataCacheName = 'big-v1'; // big-v1
 var filesToCache = [
-  '.',
-  'index.html',
-  'icon.png',
-  'background.jpeg',
+  './',
+  './index.html',
+  './icon.png',
+  './background.jpeg',
+  './stylesheets/css/shivam.css'
 ];
+
 var dataUrl = [
   'https://maps.googleapis.com/maps/api/js'
 ];
