@@ -7,7 +7,7 @@
             
            #home {
               display: none;
-              background: url("background.jpeg");
+              background: url("/projects/big/background.jpeg");
               background-size: cover;
             }
             #search {
