@@ -1,12 +1,13 @@
 {
-  "short_name": "School Locator",
-  "name": "Locates specific types of schools.",
-  "icons": [
-    {
-      "src": "favicon.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "start_url": "index.html"
+  "name": "Shivam Mehrotra",
+  "short_name": "Shivam's App",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f8f8f8",
+  "description": "Schools in the area",
+  "icons": [{
+    "src": "icon.png",
+    "sizes": "144x144",
+    "type": "image/png"
+  }]
 }
