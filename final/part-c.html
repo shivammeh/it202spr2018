@@ -23,13 +23,17 @@
                var url = 'https://translation.googleapis.com/language/translate/v2';
                url += "?key=AIzaSyD_GQyJPd1uQhmMGQ6h8H0YfAKHHlPW17k";
                url += "&target=hi&q=" + $("textarea").val();
-               
+               var word = $("textarea").val();
                 $.ajax({
                     url: url
                   })
                   .done(function (response) {
                       console.log(response.data.translations[0].translatedText);
                       $("#translation").text(response.data.translations[0].translatedText);
+                      $("#translation").append(" is ");
+                      $("#translation").append(word);
+                      $("#translation").append(" in hindi.");
+                      $("#translation").css("font-family", 'Tangerine', serif); //text now in google fonts
                       $("#translation").css("background-color","silver");
                   });
                 
