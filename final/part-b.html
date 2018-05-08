@@ -37,7 +37,7 @@
             $.get(url.replace("<clinicType>",$("#type").val())
             )
             .done(function(response){
-                console.log(response)
+                //console.log(response)
                 var myCenter={lat:41.878,lng:-87.6298};
                 var map=new google.maps.Map(document.getElementById('map'),{
                     zoom:12,
